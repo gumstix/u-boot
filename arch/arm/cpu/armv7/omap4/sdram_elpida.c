@@ -46,6 +46,9 @@
  * - emif_get_device_timings()
  */
 
+/* Dummy registers for OMAP44xx */
+const u32 ddr3_ext_phy_ctrl_const_base[EMIF_EXT_PHY_CTRL_CONST_REG];
+
 #ifdef CONFIG_SYS_EMIF_PRECALCULATED_TIMING_REGS
 
 static const struct emif_regs emif_regs_elpida_200_mhz_2cs = {
@@ -89,9 +92,6 @@ const struct emif_regs emif_regs_elpida_400_mhz_2cs = {
 	.emif_ddr_phy_ctlr_1_init	= 0x049ffff5,
 	.emif_ddr_phy_ctlr_1		= 0x049ff418
 };
-
-/* Dummy registers for OMAP44xx */
-const u32 ddr3_ext_phy_ctrl_const_base[EMIF_EXT_PHY_CTRL_CONST_REG];
 
 const struct dmm_lisa_map_regs lisa_map_2G_x_1_x_2 = {
 	.dmm_lisa_map_0 = 0xFF020100,
