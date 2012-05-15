@@ -873,6 +873,7 @@ Nomadik Linux Team <STN_WMM_nomadik_linux@list.st.com>
 Steve Sakoman <sakoman@gmail.com>
 
 	omap3_overo	ARM ARMV7 (OMAP3xx SoC)
+	omap3_duovero	ARM ARMV7 (OMAP4xx SoC)
 
 Jens Scharsig <esw@bus-elektronik.de>
 
