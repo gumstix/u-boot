@@ -35,6 +35,15 @@
 static void setup_net_chip(void);
 #endif
 
+#ifdef CONFIG_USB_EHCI
+#include <usb.h>
+#include <asm/arch/ehci.h>
+#include <asm/ehci-omap.h>
+
+struct omap4_scrm_regs *const scrm = (struct omap4_scrm_regs *)0x4a30a000;
+
+#endif
+
 DECLARE_GLOBAL_DATA_PTR;
 
 const struct omap_sysinfo sysinfo = {
@@ -210,3 +219,56 @@ int board_eth_init(bd_t *bis)
 	return rc;
 }
 
+#ifdef CONFIG_USB_EHCI
+
+static struct omap_usbhs_board_data usbhs_bdata = {
+	.port_mode[0] = OMAP_EHCI_PORT_MODE_PHY,
+	.port_mode[1] = OMAP_USBHS_PORT_MODE_UNUSED,
+	.port_mode[2] = OMAP_USBHS_PORT_MODE_UNUSED,
+};
+
+int ehci_hcd_init(void)
+{
+	int ret;
+	unsigned int utmi_clk;
+	u32 auxclk, altclksrc;
+
+	/* Now we can enable our port clocks */
+	utmi_clk = readl((void *)CM_L3INIT_HSUSBHOST_CLKCTRL);
+	utmi_clk |= HSUSBHOST_CLKCTRL_CLKSEL_UTMI_P1_MASK;
+	sr32((void *)CM_L3INIT_HSUSBHOST_CLKCTRL, 0, 32, utmi_clk);
+
+	auxclk = readl(&scrm->auxclk3);
+	/* Select sys_clk */
+	auxclk &= ~AUXCLK_SRCSELECT_MASK;
+	auxclk |=  AUXCLK_SRCSELECT_SYS_CLK << AUXCLK_SRCSELECT_SHIFT;
+	/* Set the divisor to 2 */
+	auxclk &= ~AUXCLK_CLKDIV_MASK;
+	auxclk |= AUXCLK_CLKDIV_2 << AUXCLK_CLKDIV_SHIFT;
+	/* Request auxilary clock #3 */
+	auxclk |= AUXCLK_ENABLE_MASK;
+	writel(auxclk, &scrm->auxclk3);
+
+	altclksrc = readl(&scrm->altclksrc);
+
+	/* Activate alternate system clock supplier */
+	altclksrc &= ~ALTCLKSRC_MODE_MASK;
+	altclksrc |= ALTCLKSRC_MODE_ACTIVE;
+
+	/* enable clocks */
+	altclksrc |= ALTCLKSRC_ENABLE_INT_MASK | ALTCLKSRC_ENABLE_EXT_MASK;
+
+	writel(altclksrc, &scrm->altclksrc);
+
+	ret = omap_ehci_hcd_init(&usbhs_bdata);
+	if (ret < 0)
+		return ret;
+
+	return 0;
+}
+
+int ehci_hcd_stop(void)
+{
+	return omap_ehci_hcd_stop();
+}
+#endif
