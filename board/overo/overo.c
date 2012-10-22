@@ -170,6 +170,12 @@ void get_board_mem_timings(u32 *mcfg, u32 *ctrla, u32 *ctrlb, u32 *rfr_ctrl,
 		*ctrlb = HYNIX_V_ACTIMB_200;
 		*rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_200MHz;
 		break;
+	case REVISION_3: /* Micron 512MB/1024MB, 1/2 banks of 512MB */
+		*mcfg = MCFG(512 << 20, 15);
+		*ctrla = MICRON_V_ACTIMA_200;
+		*ctrlb = MICRON_V_ACTIMB_200;
+		*rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_200MHz;
+		break;
 	default:
 		*mcfg = MICRON_V_MCFG_165(128 << 20);
 		*ctrla = MICRON_V_ACTIMA_165;
