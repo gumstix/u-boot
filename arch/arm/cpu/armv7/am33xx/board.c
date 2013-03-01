@@ -33,10 +33,12 @@
 #include <i2c.h>
 #include <miiphy.h>
 #include <cpsw.h>
+#include <micrel.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
 struct wd_timer *wdtimer = (struct wd_timer *)WDT_BASE;
+struct rtc      *rtc = (struct rtc *)RTC_BASE;
 struct uart_sys *uart_base = (struct uart_sys *)DEFAULT_UART_BASE;
 
 static const struct gpio_bank gpio_bank_am33xx[4] = {
@@ -69,6 +71,11 @@ static inline int board_is_evm_sk(void)
 	return !strncmp("A335X_SK", header.name, HDR_NAME_LEN);
 }
 
+static inline int board_is_pepper(void)
+{
+	return !strncmp("PEPPER", header.name, HDR_NAME_LEN);
+}
+
 /*
  * Read header information from EEPROM into global structure.
  */
@@ -88,6 +95,16 @@ static int read_eeprom(void)
 			" wrong on the I2C bus.\n");
 		return -EIO;
 	}
+
+#ifdef MACH_TYPE_PEPPER
+	/* remove this when pepper eeproms are programmed properly */
+	puts("Forcing pepper config\n");
+	header.magic = 0xEE3355AA;
+	strncpy(header.name,"PEPPER", HDR_NAME_LEN);
+	strncpy(header.version,"", 4);
+	strncpy(header.serial,"", 12);
+	strncpy(header.config,"", 32);
+#endif
 
 	if (header.magic != 0xEE3355AA) {
 		/*
@@ -144,6 +161,11 @@ void s_init(void)
 	writel(0x5555, &wdtimer->wdtwspr);
 	while (readl(&wdtimer->wdtwwps) != 0x0)
 		;
+
+	/* Unlock RTC registers and start 32 Khz oscillator */
+	writel(0x83e70b13, &rtc->kick0r);
+	writel(0x95a4f1e0, &rtc->kick0r);
+	writel(0x48, &rtc->rtc_osc);
 
 #ifdef CONFIG_SPL_BUILD
 	/* Setup the PLLs and the clocks for the peripherals */
@@ -219,6 +241,28 @@ int board_init(void)
 		puts("Could not get board ID.\n");
 
 	gd->bd->bi_boot_params = PHYS_DRAM_1 + 0x100;
+
+	/* reset PHY and EMMC on Pepper */
+	if (board_is_pepper()) {
+		if (!gpio_request(96, "")) {
+			gpio_direction_output(96, 0);
+			gpio_set_value(96, 0);
+			udelay(10000);
+			gpio_set_value(96, 1);
+			udelay(1000000);
+		} else {
+			printf("Could not get phy reset gpio\n");
+		}
+		if (!gpio_request(31, "")) {
+			gpio_direction_output(31, 0);
+			gpio_set_value(31, 0);
+			udelay(10000);
+			gpio_set_value(31, 1);
+			udelay(1000000);
+		} else {
+			printf("Could not get emmc reset gpio\n");
+		}
+	}
 
 	return 0;
 }
@@ -297,4 +341,23 @@ int board_eth_init(bd_t *bis)
 
 	return cpsw_register(&cpsw_data);
 }
+
+#ifdef CONFIG_PHY_MICREL_KSZ9021
+int board_phy_config(struct phy_device *phydev)
+{
+	/* min rx data skew */
+	ksz9021_phy_extended_write(phydev,
+			MII_KSZ9021_EXT_RGMII_RX_DATA_SKEW, 0x0);
+	/* min tx data skew */
+	ksz9021_phy_extended_write(phydev,
+			MII_KSZ9021_EXT_RGMII_TX_DATA_SKEW, 0x0);
+	/* max rx/tx clock skew, min rx/tx control */
+	ksz9021_phy_extended_write(phydev,
+			MII_KSZ9021_EXT_RGMII_CLOCK_SKEW, 0xa0a0);
+	if (phydev->drv->config)
+		phydev->drv->config(phydev);
+
+	return 0;
+}
+#endif
 #endif

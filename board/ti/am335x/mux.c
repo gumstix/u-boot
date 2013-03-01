@@ -282,6 +282,14 @@ static struct module_pin_mux mmc0_pin_mux_sk_evm[] = {
 	{-1},
 };
 
+static struct module_pin_mux mmc1hi_pin_mux[] = {
+	{OFFSET(gpmc_ad7), (MODE(1) | RXACTIVE | PULLUP_EN)},	/* MMC1_DAT7 */
+	{OFFSET(gpmc_ad6), (MODE(1) | RXACTIVE | PULLUP_EN)},	/* MMC1_DAT6 */
+	{OFFSET(gpmc_ad5), (MODE(1) | RXACTIVE | PULLUP_EN)},	/* MMC1_DAT5 */
+	{OFFSET(gpmc_ad4), (MODE(1) | RXACTIVE | PULLUP_EN)},	/* MMC1_DAT4 */
+	{-1},
+};
+
 static struct module_pin_mux mmc1_pin_mux[] = {
 	{OFFSET(gpmc_ad3), (MODE(1) | RXACTIVE | PULLUP_EN)},	/* MMC1_DAT3 */
 	{OFFSET(gpmc_ad2), (MODE(1) | RXACTIVE | PULLUP_EN)},	/* MMC1_DAT2 */
@@ -291,6 +299,16 @@ static struct module_pin_mux mmc1_pin_mux[] = {
 	{OFFSET(gpmc_csn2), (MODE(2) | RXACTIVE | PULLUP_EN)},	/* MMC1_CMD */
 	{OFFSET(gpmc_csn0), (MODE(7) | RXACTIVE | PULLUP_EN)},	/* MMC1_WP */
 	{OFFSET(gpmc_advn_ale), (MODE(7) | RXACTIVE | PULLUP_EN)},	/* MMC1_CD */
+	{-1},
+};
+
+static struct module_pin_mux mmc2_pin_mux[] = {
+	{OFFSET(gpmc_be1n), (MODE(3) | RXACTIVE | PULLUP_EN )},	/* SDIO2_DAT3 */
+	{OFFSET(gpmc_a3), (MODE(3) | RXACTIVE | PULLUP_EN)},	/* SDIO2_DAT2 */
+	{OFFSET(gpmc_a2), (MODE(3) | RXACTIVE | PULLUP_EN)},	/* SDIO2_DAT1 */
+	{OFFSET(gpmc_a1), (MODE(3) | RXACTIVE | PULLUP_EN)},	/* SDIO2_DAT0 */
+	{OFFSET(gpmc_clk), (MODE(3) | RXACTIVE | PULLUP_EN)},	/* SDIO2_CLK */
+	{OFFSET(gpmc_csn3), (MODE(3) | RXACTIVE | PULLUP_EN)},	/* SDIO2_CMD */
 	{-1},
 };
 
@@ -307,6 +325,14 @@ static struct module_pin_mux i2c1_pin_mux[] = {
 			PULLUDEN | SLEWCTRL)},	/* I2C_DATA */
 	{OFFSET(spi0_cs0), (MODE(2) | RXACTIVE |
 			PULLUDEN | SLEWCTRL)},	/* I2C_SCLK */
+	{-1},
+};
+
+static struct module_pin_mux i2c1_pin_mux_pepper[] = {
+	{OFFSET(mii1_crs), (MODE(3) | RXACTIVE |
+			PULLUP_EN | PULLUDEN | SLEWCTRL)},	/* I2C_DATA */
+	{OFFSET(mii1_rxerr), (MODE(3) | RXACTIVE |
+			PULLUP_EN | PULLUDEN | SLEWCTRL)},	/* I2C_SCLK */
 	{-1},
 };
 
@@ -359,6 +385,73 @@ static struct module_pin_mux mii1_pin_mux[] = {
 	{OFFSET(mii1_rxd0), MODE(0) | RXACTIVE},	/* MII1_RXD0 */
 	{OFFSET(mdio_data), MODE(0) | RXACTIVE | PULLUP_EN}, /* MDIO_DATA */
 	{OFFSET(mdio_clk), MODE(0) | PULLUP_EN},	/* MDIO_CLK */
+	{-1},
+};
+
+static struct module_pin_mux asp0_pin_mux[] = {
+	{OFFSET(mcasp0_aclkx), (MODE(0) | RXACTIVE | PULLUP_EN)},/* MCASP0_ACLKX */
+	{OFFSET(mcasp0_fsx), (MODE(0) | RXACTIVE | PULLUP_EN)},	/* MCASP0_FSX */
+	{OFFSET(mcasp0_axr0), (MODE(0) | RXACTIVE | PULLUP_EN)},/* MCASP0_AXR0 */
+	{OFFSET(mcasp0_ahclkr), (MODE(0) | RXACTIVE | PULLUP_EN)},/* MCASP0_AHCLKR */
+	{OFFSET(mcasp0_aclkr), (MODE(0) | RXACTIVE | PULLUP_EN)},/* MCASP0_ACLKR */
+	{OFFSET(mcasp0_fsr), (MODE(0) | RXACTIVE | PULLUP_EN)},	/* MCASP0_FSR */
+	{OFFSET(mcasp0_axr1), (MODE(0) | RXACTIVE | PULLUP_EN)},/* MCASP0_AXR1 */
+	{OFFSET(mcasp0_ahclkx), (MODE(0) | RXACTIVE | PULLUP_EN)},/* MCASP0_AHCLKX */
+	{-1},
+};
+
+static struct module_pin_mux lcd_pin_mux[] = {
+	{OFFSET(gpmc_ad8), (MODE(1))},				/* LCD_DATA23 */
+	{OFFSET(gpmc_ad9), (MODE(1))},				/* LCD_DATA22 */
+	{OFFSET(gpmc_ad10), (MODE(1))},				/* LCD_DATA21 */
+	{OFFSET(gpmc_ad11), (MODE(1))},				/* LCD_DATA20 */
+	{OFFSET(gpmc_ad12), (MODE(1))},				/* LCD_DATA19 */
+	{OFFSET(gpmc_ad13), (MODE(1))},				/* LCD_DATA18 */
+	{OFFSET(gpmc_ad14), (MODE(1))},				/* LCD_DATA17 */
+	{OFFSET(gpmc_ad15), (MODE(1))},				/* LCD_DATA16 */
+	{OFFSET(lcd_data0), (MODE(0))},				/* LCD_DATA0 */
+	{OFFSET(lcd_data1), (MODE(0))},				/* LCD_DATA1 */
+	{OFFSET(lcd_data2), (MODE(0))},				/* LCD_DATA2 */
+	{OFFSET(lcd_data3), (MODE(0))},				/* LCD_DATA3 */
+	{OFFSET(lcd_data4), (MODE(0))},				/* LCD_DATA4 */
+	{OFFSET(lcd_data5), (MODE(0))},				/* LCD_DATA5 */
+	{OFFSET(lcd_data6), (MODE(0))},				/* LCD_DATA6 */
+	{OFFSET(lcd_data7), (MODE(0))},				/* LCD_DATA7 */
+	{OFFSET(lcd_data8), (MODE(0))},				/* LCD_DATA8*/
+	{OFFSET(lcd_data9), (MODE(0))},				/* LCD_DATA9 */
+	{OFFSET(lcd_data10), (MODE(0))},			/* LCD_DATA10 */
+	{OFFSET(lcd_data11), (MODE(0))},			/* LCD_DATA11 */
+	{OFFSET(lcd_data12), (MODE(0))},			/* LCD_DATA12 */
+	{OFFSET(lcd_data13), (MODE(0))},			/* LCD_DATA13 */
+	{OFFSET(lcd_data14), (MODE(0))},			/* LCD_DATA14 */
+	{OFFSET(lcd_data15), (MODE(0))},			/* LCD_DATA15 */
+	{OFFSET(lcd_vsync),  (MODE(0))},			/* LCD_VSYNC */
+	{OFFSET(lcd_hsync),  (MODE(0))},			/* LCD_HSYNC */
+	{OFFSET(lcd_pclk),   (MODE(0))},			/* LCD_PCLK */
+	{OFFSET(lcd_ac_bias_en), (MODE(0))},			/* LCD_AC_BIAS_EN */
+	{-1},
+};
+
+static struct module_pin_mux pepper_pin_mux[] = {
+	{OFFSET(ecap0_in_pwm0_out), (MODE(7))},			/* GPIO7 */
+	{OFFSET(xdma_event_intr0), (MODE(3))},			/* CLK_26M */
+	{OFFSET(xdma_event_intr1), (MODE(3))},			/* CLK_32K */
+	{OFFSET(gpmc_a0), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO48 - audio_nreset */
+	{OFFSET(gpmc_a4), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO52 */
+	{OFFSET(gpmc_a5), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO53 */
+	{OFFSET(gpmc_a6), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO54 */
+	{OFFSET(gpmc_a7), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO55 */
+	{OFFSET(gpmc_a8), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO56 - wlan_nreset */
+	{OFFSET(gpmc_a9), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO57 */
+	{OFFSET(gpmc_a10), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO58 */
+	{OFFSET(gpmc_a11), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO59 - lcd_en */
+	{OFFSET(gpmc_csn1), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO62 */
+	{OFFSET(gpmc_csn2), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO63 */
+	{OFFSET(gpmc_wen), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO68 - accel_nint */
+	{OFFSET(gpmc_wait0), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO30 - wlan_npwrdn */
+	{OFFSET(gpmc_wpn), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO31 - emmc_nreset */
+	{OFFSET(mii1_col), (MODE(7) | PULLUP_EN | PULLUDEN)},	/* GPIO96 - eth_nreset */
+	{OFFSET(rmii1_refclk), (MODE(7) | PULLUP_EN | PULLUDEN)},/* GPIO29 - eth_nint */
 	{-1},
 };
 
@@ -448,6 +541,18 @@ void enable_board_pin_mux(struct am335x_baseboard_id *header)
 		configure_module_pin_mux(gpio0_7_pin_mux);
 		configure_module_pin_mux(rgmii1_pin_mux);
 		configure_module_pin_mux(mmc0_pin_mux_sk_evm);
+	} else if (!strncmp(header->name, "PEPPER", HDR_NAME_LEN)) {
+		/* Gumstix Pepper */
+		printf("INIT PEPPER PINMUX\n");
+		configure_module_pin_mux(i2c1_pin_mux_pepper);
+		configure_module_pin_mux(rgmii1_pin_mux);
+		configure_module_pin_mux(mmc0_pin_mux_sk_evm);
+		configure_module_pin_mux(mmc1_pin_mux);
+		configure_module_pin_mux(mmc1hi_pin_mux);
+		configure_module_pin_mux(mmc2_pin_mux);
+		configure_module_pin_mux(asp0_pin_mux);
+		configure_module_pin_mux(lcd_pin_mux);
+		configure_module_pin_mux(pepper_pin_mux);
 	} else {
 		puts("Unknown board, cannot configure pinmux.");
 		hang();
