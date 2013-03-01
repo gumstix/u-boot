@@ -176,6 +176,7 @@ const struct pad_conf_entry core_padconf_array_non_essential[] = {
 	{USBB2_ULPITLL_DAT7, (PTU | IEN | M3)},				/* gpio_168 */
 	{USBB2_HSIC_DATA, (PTU | IEN | M3)},				/* gpio_169 */
 	{USBB2_HSIC_STROBE, (PTU | IEN | M3)},				/* gpio_170 */
+	{UNIPRO_TX1, (PTU | IEN | M3)},					/* gpio_173 */
 	{USBA0_OTG_CE, (PTD | OFF_EN | OFF_PD | OFF_OUT_PTD | M0)},	/* usba0_otg_ce */
 	{USBA0_OTG_DP, (IEN | OFF_EN | OFF_PD | OFF_IN | M0)},		/* usba0_otg_dp */
 	{USBA0_OTG_DM, (IEN | OFF_EN | OFF_PD | OFF_IN | M0)},		/* usba0_otg_dm */
