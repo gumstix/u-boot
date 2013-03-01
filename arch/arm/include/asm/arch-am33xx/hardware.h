@@ -45,6 +45,9 @@
 /* Watchdog Timer */
 #define WDT_BASE			0x44E35000
 
+/* RTC */
+#define RTC_BASE			0x44E3E000
+
 /* Control Module Base Address */
 #define CTRL_BASE			0x44E10000
 #define CTRL_DEVICE_BASE		0x44E10600

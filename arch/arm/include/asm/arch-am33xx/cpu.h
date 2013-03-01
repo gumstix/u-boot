@@ -195,6 +195,49 @@ struct wd_timer {
 	unsigned int wdt_unfr;	/* offset 0x100 */
 };
 
+/* RTC registers */
+struct rtc {
+	unsigned int seconds;		/* offset 0x00 */
+	unsigned int minutes;		/* offset 0x04 */
+	unsigned int hours;		/* offset 0x08 */
+	unsigned int days;		/* offset 0x0C */
+	unsigned int months;		/* offset 0x10 */
+	unsigned int years;		/* offset 0x14 */
+	unsigned int weeks;		/* offset 0x18 */
+	unsigned int resv1;		/* offset 0x1C */
+	unsigned int alarm_seconds;	/* offset 0x20 */
+	unsigned int alarm_minutes;	/* offset 0x24 */
+	unsigned int alarm_hours;	/* offset 0x28 */
+	unsigned int alarm_days;	/* offset 0x2C */
+	unsigned int alarm_months;	/* offset 0x30 */
+	unsigned int alarm_years;	/* offset 0x34 */
+	unsigned int resv2;		/* offset 0x38 */
+	unsigned int resv3;		/* offset 0x3C */
+	unsigned int rtc_ctrl;	/* offset 0x40 */
+	unsigned int rtc_status;	/* offset 0x44 */
+	unsigned int rtc_interrupts;	/* offset 0x48 */
+	unsigned int rtc_comp_lsb;	/* offset 0x4C */
+	unsigned int rtc_comp_msb;	/* offset 0x50 */
+	unsigned int rtc_osc;		/* offset 0x54 */
+	unsigned int resv4;		/* offset 0x58 */
+	unsigned int resv5;		/* offset 0x5C */
+	unsigned int rtc_scratch0;	/* offset 0x60 */
+	unsigned int rtc_scratch1;	/* offset 0x64 */
+	unsigned int rtc_scratch2;	/* offset 0x68 */
+	unsigned int kick0r;		/* offset 0x6C */
+	unsigned int kick1r;		/* offset 0x70 */
+	unsigned int rtc_revision;	/* offset 0x74 */
+	unsigned int rtc_sysconfig;	/* offset 0x78 */
+	unsigned int rtc_irqwakeen;	/* offset 0x7C */
+	unsigned int alarm2_seconds;	/* offset 0x80 */
+	unsigned int alarm2_minutes;	/* offset 0x84 */
+	unsigned int alarm2_hours;	/* offset 0x88 */
+	unsigned int alarm2_days;	/* offset 0x8C */
+	unsigned int alarm2_months;	/* offset 0x90 */
+	unsigned int alarm2_years;	/* offset 0x94 */
+	unsigned int rtc_pmic;	/* offset 0x98 */
+};
+
 /* Timer 32 bit registers */
 struct gptimer {
 	unsigned int tidr;		/* offset 0x00 */
