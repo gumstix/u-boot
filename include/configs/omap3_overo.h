@@ -127,7 +127,7 @@
  *  xloader              4 * NAND_BLOCK_SIZE = 512 KiB
  *  uboot               14 * NAND_BLOCK_SIZE = 1792 KiB
  *  uboot environtment   2 * NAND_BLOCK_SIZE = 256 KiB
- *  linux               64 * NAND_BLOCK_SIE = 8 MiB
+ *  linux               64 * NAND_BLOCK_SIZE = 8 MiB
  *  rootfs              remainder
  */
 #define MTDIDS_DEFAULT "nand0=omap2-nand.0"
