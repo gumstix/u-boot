@@ -57,6 +57,9 @@ DECLARE_GLOBAL_DATA_PTR;
 #define GUMSTIX_PINTO			0x07000200
 #define GUMSTIX_GALLOP43		0x08000200
 #define GUMSTIX_ALTO35			0x09000200
+#define GUMSTIX_STAGECOACH		0x0A000200
+#define GUMSTIX_THUMBO			0x0B000200
+#define GUMSTIX_TURTLECORE		0x0C000200
 
 #define ETTUS_USRP_E			0x01000300
 
@@ -329,6 +332,21 @@ int misc_init_r(void)
 			expansion_config.fab_revision);
 		MUX_ALTO35();
 		setenv("defaultdisplay", "lcd35");
+		break;
+	case GUMSTIX_STAGECOACH:
+		printf("Recognized Stagecoach expansion board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
+		break;
+	case GUMSTIX_THUMBO:
+		printf("Recognized Thumbo expansion board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
+		break;
+	case GUMSTIX_TURTLECORE:
+		printf("Recognized Turtlecore expansion board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
 		break;
 	case ETTUS_USRP_E:
 		printf("Recognized Ettus Research USRP-E (rev %d %s)\n",
