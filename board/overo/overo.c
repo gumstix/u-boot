@@ -56,6 +56,7 @@ DECLARE_GLOBAL_DATA_PTR;
 #define GUMSTIX_CHESTNUT43		0x06000200
 #define GUMSTIX_PINTO			0x07000200
 #define GUMSTIX_GALLOP43		0x08000200
+#define GUMSTIX_ALTO35			0x09000200
 
 #define ETTUS_USRP_E			0x01000300
 
@@ -247,6 +248,8 @@ unsigned int get_expansion_id(void)
  */
 int misc_init_r(void)
 {
+	unsigned int expansion_id;
+
 	twl4030_power_init();
 	twl4030_led_init(TWL4030_LED_LEDEN_LEDAON | TWL4030_LED_LEDEN_LEDBON);
 
@@ -269,7 +272,8 @@ int misc_init_r(void)
 		puts("Unable to detect mmc2 connection type\n");
 	}
 
-	switch (get_expansion_id()) {
+	expansion_id = get_expansion_id();
+	switch (expansion_id) {
 	case GUMSTIX_SUMMIT:
 		printf("Recognized Summit expansion board (rev %d %s)\n",
 			expansion_config.revision,
@@ -319,6 +323,13 @@ int misc_init_r(void)
 			expansion_config.fab_revision);
 		setenv("defaultdisplay", "lcd43");
 		break;
+	case GUMSTIX_ALTO35:
+		printf("Recognized Alto35 expansion board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
+		MUX_ALTO35();
+		setenv("defaultdisplay", "lcd35");
+		break;
 	case ETTUS_USRP_E:
 		printf("Recognized Ettus Research USRP-E (rev %d %s)\n",
 			expansion_config.revision,
@@ -330,7 +341,8 @@ int misc_init_r(void)
 		puts("No EEPROM on expansion board\n");
 		break;
 	default:
-		puts("Unrecognized expansion board\n");
+		printf("Unrecognized expansion board 0x%08x\n", expansion_id);
+		break;
 	}
 
 	if (expansion_config.content == 1)
