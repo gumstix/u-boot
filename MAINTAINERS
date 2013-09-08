@@ -640,6 +640,10 @@ Luca Ceresoli <luca.ceresoli@comelit.it>
 
 	dig297		ARM ARMV7 (OMAP3530 SoC)
 
+Ash Charles <ash@gumstix.com>
+
+	omap4_duovero		ARM ARMV7 (OMAP4xx SoC)
+
 Po-Yu Chuang <ratbert@faraday-tech.com>
 
 	a320evb		FA526 (ARM920T-like) (a320 SoC)
