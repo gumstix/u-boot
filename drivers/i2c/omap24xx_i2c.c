@@ -165,7 +165,6 @@ void i2c_init(int speed, int slaveadd)
 	udelay(1000);
 	flush_fifo();
 	writew(0xFFFF, &i2c_base->stat);
-	writew(0, &i2c_base->cnt);
 
 	if (gd->flags & GD_FLG_RELOC)
 		bus_initialized[current_bus] = 1;
@@ -205,8 +204,6 @@ int i2c_probe(uchar chip)
 		return res;
 
 	/* No data transfer, slave addr only */
-	writew(0, &i2c_base->cnt);
-	/* Set slave address */
 	writew(chip, &i2c_base->sa);
 	/* Stop bit needed here */
 	writew(I2C_CON_EN | I2C_CON_MST | I2C_CON_STT | I2C_CON_TRX |
@@ -241,7 +238,6 @@ int i2c_probe(uchar chip)
 pr_exit:
 	flush_fifo();
 	writew(0xFFFF, &i2c_base->stat);
-	writew(0, &i2c_base->cnt);
 	return res;
 }
 
@@ -377,7 +373,6 @@ int i2c_read(uchar chip, uint addr, int alen, uchar *buffer, int len)
 rd_exit:
 	flush_fifo();
 	writew(0xFFFF, &i2c_base->stat);
-	writew(0, &i2c_base->cnt);
 	return i2c_error;
 }
 
@@ -476,7 +471,6 @@ int i2c_write(uchar chip, uint addr, int alen, uchar *buffer, int len)
 wr_exit:
 	flush_fifo();
 	writew(0xFFFF, &i2c_base->stat);
-	writew(0, &i2c_base->cnt);
 	return i2c_error;
 }
 
