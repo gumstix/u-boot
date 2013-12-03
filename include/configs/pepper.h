@@ -13,6 +13,7 @@
 
 #include <asm/arch/omap.h>
 
+#define CONFIG_SETUP_MEMORY_TAGS 1
 /* Mach type */
 #define MACH_TYPE_PEPPER		4207	/* Until the next sync */
 #define CONFIG_MACH_TYPE		MACH_TYPE_PEPPER
