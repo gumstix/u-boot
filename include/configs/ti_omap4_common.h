@@ -111,9 +111,13 @@
 	"importbootenv=echo Importing environment from mmc${mmcdev} ...; " \
 		"env import -t ${loadaddr} ${filesize}\0" \
 	"loadimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}\0" \
+	"loaduimage=fatload mmc ${mmcdev} ${loadaddr} uImage\0" \
 	"mmcboot=echo Booting from mmc${mmcdev} ...; " \
 		"run mmcargs; " \
 		"bootz ${loadaddr} - ${fdtaddr}\0" \
+	"uimageboot=echo Booting from mmc${mmcdev} ...; " \
+		"run mmcargs; " \
+		"bootm ${loadaddr}\0" \
 	"findfdt="\
 		"if test $board_name = sdp4430; then " \
 			"setenv fdtfile omap4-sdp.dtb; fi; " \
@@ -123,6 +127,8 @@
 			"setenv fdtfile omap4-panda-a4.dtb; fi;" \
 		"if test $board_name = panda-es; then " \
 			"setenv fdtfile omap4-panda-es.dtb; fi;" \
+		"if test $board_name = duovero; then " \
+			"setenv fdtfile omap4-duovero.dtb; fi;" \
 		"if test $fdtfile = undefined; then " \
 			"echo WARNING: Could not determine device tree to use; fi; \0" \
 	"loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}\0" \
@@ -145,6 +151,9 @@
 		"if run loadimage; then " \
 			"run loadfdt;" \
 			"run mmcboot; " \
+		"fi; " \
+		"if run loaduimage; then " \
+			"run uimageboot;" \
 		"fi; " \
 	"fi"
 
