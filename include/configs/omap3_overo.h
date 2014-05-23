@@ -167,7 +167,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"loadaddr=0x82000000\0" \
 	"dtbaddr=0x81600000\0" \
-	"dtbfile=overo.dtb\0" \
+	"dtbfile=omap3-overo-storm-tobi.dtb\0" \
 	"bootdir=/boot\0" \
 	"bootfile=zImage\0" \
 	"usbtty=cdc_acm\0" \

@@ -230,6 +230,52 @@ unsigned int get_expansion_id(void)
 	return expansion_config.device_vendor;
 }
 
+#ifdef CONFIG_OF_LIBFDT
+void set_fdt(void)
+{
+	int is_storm = 0;
+	char fdtname[64];
+	char expansion_name[32];
+
+        if (get_cpu_family() != CPU_OMAP34XX)
+		is_storm = 1;
+
+        switch (expansion_config.device_vendor) {
+        case GUMSTIX_SUMMIT:
+		snprintf(expansion_name, ARRAY_SIZE(expansion_name), "%s",
+		        "summit");
+		break;
+	case GUMSTIX_CHESTNUT43:
+		snprintf(expansion_name, ARRAY_SIZE(expansion_name), "%s",
+		        "chestnut43");
+		break;
+	case GUMSTIX_PALO43:
+		snprintf(expansion_name, ARRAY_SIZE(expansion_name), "%s",
+		        "palo43");
+		break;
+	case GUMSTIX_GALLOP43:
+		snprintf(expansion_name, ARRAY_SIZE(expansion_name), "%s",
+		        "gallop43");
+		break;
+	case GUMSTIX_ALTO35:
+		snprintf(expansion_name, ARRAY_SIZE(expansion_name), "%s",
+		        "alto35");
+		break;
+	case GUMSTIX_TOBI:
+	case GUMSTIX_NO_EEPROM:
+	default:
+		snprintf(expansion_name, ARRAY_SIZE(expansion_name), "%s",
+		        "tobi");
+	}
+
+        snprintf(fdtname, ARRAY_SIZE(fdtname),  "omap3-overo%s-%s.dtb",
+                 is_storm ? "-storm" : "", expansion_name);
+        setenv("dtbfile", fdtname);
+}
+#else
+void set_fdt(void) { return; }
+#endif
+
 /*
  * Routine: misc_init_r
  * Description: Configure board specific parts
@@ -359,6 +405,8 @@ int misc_init_r(void)
 		setenv(expansion_config.env_var, expansion_config.env_setting);
 
 	dieid_num_r();
+
+	set_fdt();
 
 	return 0;
 }
