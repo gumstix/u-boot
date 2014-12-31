@@ -17,6 +17,8 @@
 #define V_OSCK				24000000  /* Clock output from T2 */
 #define V_SCLK				(V_OSCK)
 
+/*#define CONFIG_USE_DDR3 */
+
 #undef CONFIG_SYS_PROMPT
 #define CONFIG_SYS_PROMPT		"pepper# "
 
