@@ -345,6 +345,7 @@ int misc_init_r(void)
 			expansion_config.fab_revision);
 		MUX_ARBOR43C();
 		setenv("defaultdisplay", "lcd43");
+		setenv("expansionname", "arbor43c");
 		break;
 	case ETTUS_USRP_E:
 		printf("Recognized Ettus Research USRP-E (rev %d %s)\n",
