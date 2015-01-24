@@ -283,6 +283,7 @@ int misc_init_r(void)
 		/* second lan chip */
 		enable_gpmc_cs_config(gpmc_lan_config, &gpmc_cfg->cs[4],
 		    0x2B000000, GPMC_SIZE_16M);
+		setenv("expansionname", "tobiduo");
 		break;
 	case GUMSTIX_PALO35:
 		printf("Recognized Palo35 expansion board (rev %d %s)\n",
