@@ -59,7 +59,7 @@ void get_board_mem_timings(struct board_sdrc_timings *timings)
         timings->mr = MICRON_V_MR_165;
         switch (get_board_revision()) {
         case REVISION_0: /* Micron 1286MB/256MB, 1/2 banks of 128MB */
-                timings->mcfg = MICRON_V_MCFG_165(128 << 20);
+                timings->mcfg = MICRON_V_MCFG_165(256 << 20);
                 timings->ctrla = MICRON_V_ACTIMA_165;
                 timings->ctrlb = MICRON_V_ACTIMB_165;
                 timings->rfr_ctrl = SDP_3430_SDRC_RFR_CTRL_165MHz;
