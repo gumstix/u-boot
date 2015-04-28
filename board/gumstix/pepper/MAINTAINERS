@@ -4,3 +4,4 @@ S:	Maintained
 F:	board/gumstix/pepper/
 F:	include/configs/pepper.h
 F:	configs/pepper_defconfig
+F:	configs/pepper_ddr3_defconfig

@@ -117,11 +117,9 @@ const struct dpll_params *get_dpll_ddr_params(void)
 void sdram_init(void)
 {
 #ifdef CONFIG_USE_DDR3
-	printf("Booting with DDR3\n");
 	config_ddr(400, &ioregs_ddr, &ddr_data,
 		   &ddr_cmd_ctrl_data, &ddr_emif_reg_data, 0);
 #else
-	printf("Booting with DDR\n");
 	config_ddr(266, &ioregs_ddr, &ddr_data,
 		   &ddr_cmd_ctrl_data, &ddr_emif_reg_data, 0);
 #endif
