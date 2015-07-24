@@ -249,11 +249,6 @@
 #define CONFIG_SPL_LIBDISK_SUPPORT
 #define CONFIG_SPL_MMC_SUPPORT
 #define CONFIG_SPL_FAT_SUPPORT
-#define CONFIG_SPL_EXT_SUPPORT
-#endif
-
-#ifdef CONFIG_SPL_BUILD
-#define CONFIG_SYS_THUMB_BUILD	/* Thumbs mode to save space in SPL */
 #endif
 
 /* General parts of the framework, required. */
