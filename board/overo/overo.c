@@ -358,6 +358,7 @@ int board_eth_init(bd_t *bis)
 	case GUMSTIX_TOBI:
 	case GUMSTIX_CHESTNUT43:
 	case GUMSTIX_STAGECOACH:
+	case GUMSTIX_ARBOR43C:
 	case GUMSTIX_NO_EEPROM:
 	case GUMSTIX_EMPTY_EEPROM:
 		/* first lan chip */
