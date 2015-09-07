@@ -53,6 +53,8 @@ DECLARE_GLOBAL_DATA_PTR;
 #define GUMSTIX_THUMBO			0x0B000200
 #define GUMSTIX_TURTLECORE		0x0C000200
 #define GUMSTIX_ARBOR43C		0x0D000200
+#define GUMSTIX_ARBOR50C		0x0E000200
+#define GUMSTIX_ARBOR70C		0x0F000200
 
 #define ETTUS_USRP_E			0x01000300
 
@@ -263,6 +265,24 @@ int misc_init_r(void)
 		setenv("defaultdisplay", "lcd43");
 		setenv("expansionname", "arbor43c");
 		break;
+	case GUMSTIX_ARBOR50C:
+		printf("Recognized Arbor50C expansion board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
+		MUX_GUMSTIX();
+		MUX_ARBOR43C();
+		setenv("defaultdisplay", "lcd43");
+		setenv("expansionname", "arbor50c");
+		break;
+	case GUMSTIX_ARBOR70C:
+		printf("Recognized Arbor70C expansion board (rev %d %s)\n",
+			expansion_config.revision,
+			expansion_config.fab_revision);
+		MUX_GUMSTIX();
+		MUX_ARBOR43C();
+		setenv("defaultdisplay", "lcd43");
+		setenv("expansionname", "arbor70c");
+		break;
 	case ETTUS_USRP_E:
 		printf("Recognized Ettus Research USRP-E (rev %d %s)\n",
 			expansion_config.revision,
@@ -359,6 +379,8 @@ int board_eth_init(bd_t *bis)
 	case GUMSTIX_CHESTNUT43:
 	case GUMSTIX_STAGECOACH:
 	case GUMSTIX_ARBOR43C:
+	case GUMSTIX_ARBOR50C:
+	case GUMSTIX_ARBOR70C:
 	case GUMSTIX_NO_EEPROM:
 	case GUMSTIX_EMPTY_EEPROM:
 		/* first lan chip */
