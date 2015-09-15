@@ -32,6 +32,20 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
+static int read_eeprom(struct pepper_board_id *header)
+{
+	if (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR)) {
+		return -ENODEV;
+	}
+
+	if (i2c_read(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 1, (uchar *)header,
+		sizeof(struct pepper_board_id))) {
+		return -EIO;
+	}
+
+	return 0;
+}
+
 #ifdef CONFIG_SPL_BUILD
 #define OSC	(V_OSCK/1000000)
 
@@ -106,20 +120,6 @@ const struct ctrl_ioregs ioregs_ddr2 = {
 	.dt1ioctl		= MT47H128M16RT25E_IOCTRL_VALUE,
 };
 
-static int read_eeprom(struct pepper_board_id *header)
-{
-	if (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR)) {
-		return -ENODEV;
-	}
-
-	if (i2c_read(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 1, (uchar *)header,
-		sizeof(struct pepper_board_id))) {
-		return -EIO;
-	}
-
-	return 0;
-}
-
 const struct dpll_params *get_dpll_ddr_params(void)
 {
 	struct pepper_board_id header;
@@ -192,6 +192,25 @@ int board_init(void)
 
 	return 0;
 }
+
+#ifdef CONFIG_BOARD_LATE_INIT
+int board_late_init(void)
+{
+	struct pepper_board_id header;
+
+	if (read_eeprom(&header) < 0) {
+		puts("Could not get board ID.\n");
+		return 0;
+	}
+
+	if (header.content == 1) {
+		setenv(header.env_var, header.env_setting);
+	}
+
+	return 0;
+}
+#endif
+
 
 #if (defined(CONFIG_DRIVER_TI_CPSW) && !defined(CONFIG_SPL_BUILD)) || \
 	(defined(CONFIG_SPL_ETH_SUPPORT) && defined(CONFIG_SPL_BUILD))

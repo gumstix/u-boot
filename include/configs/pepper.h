@@ -10,7 +10,7 @@
 #define CONFIG_MMC
 #include <configs/ti_am335x_common.h>
 
-#undef CONFIG_BOARD_LATE_INIT
+#define CONFIG_BOARD_LATE_INIT
 #undef CONFIG_SPL_OS_BOOT
 
 /* Clock defines */

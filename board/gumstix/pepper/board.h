@@ -18,7 +18,7 @@ struct pepper_board_id {
 	unsigned char content;
 	char fab_revision[8];
 	char env_var[16];
-	char en_setting[64];
+	char env_setting[64];
 };
 
 /*
