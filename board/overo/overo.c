@@ -263,7 +263,10 @@ int misc_init_r(void)
 		MUX_GUMSTIX();
 		MUX_ARBOR43C();
 		setenv("defaultdisplay", "lcd43");
-		setenv("expansionname", "arbor43c");
+		if (!strcmp(expansion_config.fab_revision, "R1"))
+			setenv("expansionname", "arbor43c1");
+		else
+			setenv("expansionname", "arbor43c");
 		break;
 	case GUMSTIX_ARBOR50C:
 		printf("Recognized Arbor50C expansion board (rev %d %s)\n",
