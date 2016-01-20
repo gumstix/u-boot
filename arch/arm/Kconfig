@@ -512,6 +512,11 @@ config TARGET_CM_T43
 	select CPU_V7
 	select SUPPORT_SPL
 
+config TARGET_POBLANO
+	bool "Support Poblano"
+	select CPU_V7
+	select SUPPORT_SPL
+
 config ARCH_SUNXI
 	bool "Support sunxi (Allwinner) SoCs"
 	select CMD_USB
@@ -805,6 +810,7 @@ source "board/freescale/mx53loco/Kconfig"
 source "board/freescale/mx53smd/Kconfig"
 source "board/freescale/vf610twr/Kconfig"
 source "board/gumstix/pepper/Kconfig"
+source "board/gumstix/poblano/Kconfig"
 source "board/h2200/Kconfig"
 source "board/hisilicon/hikey/Kconfig"
 source "board/imx31_phycore/Kconfig"

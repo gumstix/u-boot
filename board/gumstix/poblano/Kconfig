@@ -1,0 +1,15 @@
+if TARGET_POBLANO
+
+config SYS_BOARD
+	default "poblano"
+
+config SYS_VENDOR
+	default "gumstix"
+
+config SYS_SOC
+	default "am33xx"
+
+config SYS_CONFIG_NAME
+	default "poblano"
+
+endif
