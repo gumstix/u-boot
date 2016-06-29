@@ -6,6 +6,7 @@
  * SPDX-License-Identifier:     GPL-2.0+
  */
 #include <common.h>
+#include <errno.h>
 #include <netdev.h>
 #include <asm/arch/sys_proto.h>
 #include <asm/arch/mmc_host_def.h>
@@ -31,6 +32,33 @@ static void setup_net_chip(void);
 #endif
 
 DECLARE_GLOBAL_DATA_PTR;
+
+struct duovero_board_id {
+	unsigned int device_vendor;
+	unsigned char revision;
+	unsigned char content;
+	char fab_revision[8];
+	char env_var[16];
+	char env_setting[64];
+};
+
+static int read_eeprom(struct duovero_board_id *header)
+{
+	i2c_set_bus_num(CONFIG_SYS_I2C_EEPROM_BUS);
+
+	if (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR)) {
+		return -ENODEV;
+	}
+
+	if (i2c_read(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 1, (uchar *)header,
+		sizeof(struct duovero_board_id))) {
+		return -EIO;
+	}
+
+	i2c_set_bus_num(CONFIG_SYS_I2C_TWL6040_BUS);
+
+	return 0;
+}
 
 const struct omap_sysinfo sysinfo = {
 	"Board: duovero\n"
@@ -86,6 +114,23 @@ int misc_init_r(void)
 #endif
 	return 0;
 }
+
+#ifdef CONFIG_BOARD_LATE_INIT
+int board_late_init(void)
+{
+	struct duovero_board_id header;
+
+	if (read_eeprom(&header) < 0) {
+		puts("Could not get board ID.\n");
+		return 0;
+	}
+
+	if (header.content == 1)
+		setenv(header.env_var, header.env_setting);
+
+	return 0;
+}
+#endif
 
 void set_muxconf_regs_essential(void)
 {

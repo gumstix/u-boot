@@ -21,6 +21,7 @@
 
 #include <configs/ti_omap4_common.h>
 
+#define CONFIG_BOARD_LATE_INIT
 #undef CONFIG_SPL_OS_BOOT
 
 #undef CONFIG_SYS_EMIF_PRECALCULATED_TIMING_REGS
@@ -53,7 +54,12 @@
 /* GPIO */
 #define CONFIG_CMD_GPIO
 
+#define CONFIG_SYS_I2C_TWL6040_BUS 	0
+#define CONFIG_SYS_I2C_EEPROM_BUS 	2
+#define CONFIG_SYS_I2C_EEPROM_ADDR  0x51
+
 /* ENV related config options */
+#define CONFIG_ENV_SIZE         (128 << 10) /* 128 KiB */
 #define CONFIG_ENV_IS_NOWHERE
 
 #define CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
