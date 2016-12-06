@@ -59,15 +59,45 @@ static struct module_pin_mux i2c_pin_mux[] = {
 
 static struct module_pin_mux emmc_pin_mux[] = {
 	{OFFSET(gpmc_csn1), (MODE(2) | PULLUDDIS | RXACTIVE)}, /* EMMC_CLK */
+//	{OFFSET(gpmc_csn1), (MODE(2) | PULLUDDIS)}, /* EMMC_CLK */
+//	{OFFSET(gpmc_csn1), (MODE(7) | PULLUDDIS | RXACTIVE)}, /* EMMC_CLK */
+
 	{OFFSET(gpmc_csn2), (MODE(2) | PULLUP_EN | RXACTIVE)}, /* EMMC_CMD */
-	{OFFSET(gpmc_ad0),  (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT0 */
-	{OFFSET(gpmc_ad1),  (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT1 */
-	{OFFSET(gpmc_ad2), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT2 */
-	{OFFSET(gpmc_ad3), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT3 */
+//	{OFFSET(gpmc_csn2), (MODE(7) | PULLDOWN_EN | RXACTIVE)}, /* EMMC_CMD */
+
+	{OFFSET(gpmc_ad8),  (MODE(2) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT0 */
+//	{OFFSET(gpmc_ad8),  (MODE(7) | PULLDOWN_EN | RXACTIVE)}, /* EMMC_DAT0 */
+
+	{OFFSET(gpmc_ad9),  (MODE(2) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT1 */
+//	{OFFSET(gpmc_ad9),  (MODE(7) | PULLDOWN_EN | RXACTIVE)}, /* EMMC_DAT1 */
+
+	{OFFSET(gpmc_ad10), (MODE(2) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT2 */
+//	{OFFSET(gpmc_ad10), (MODE(7) | PULLDOWN_EN | RXACTIVE)}, /* EMMC_DAT2 */
+
+	{OFFSET(gpmc_ad11), (MODE(2) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT3 */
+//	{OFFSET(gpmc_ad11), (MODE(7) | PULLDOWN_EN | RXACTIVE)}, /* EMMC_DAT3 */
+
+//	{OFFSET(gpmc_ad0),  (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT0 */
+//	{OFFSET(gpmc_ad1),  (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT1 */
+//	{OFFSET(gpmc_ad2), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT2 */
+//	{OFFSET(gpmc_ad3), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT3 */
+
 	{OFFSET(gpmc_ad4), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT4 */
+//	{OFFSET(gpmc_ad4), (MODE(7) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT4 */
+
 	{OFFSET(gpmc_ad5), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT5 */
+//	{OFFSET(gpmc_ad5), (MODE(7) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT5 */
+
 	{OFFSET(gpmc_ad6), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT6 */
+//	{OFFSET(gpmc_ad6), (MODE(7) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT6 */
+
 	{OFFSET(gpmc_ad7), (MODE(1) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT7 */
+//	{OFFSET(gpmc_ad7), (MODE(7) | PULLUP_EN | RXACTIVE)}, /* EMMC_DAT7 */
+
+//	{OFFSET(gpmc_wait0), (MODE(4) | PULLUP_EN | RXACTIVE)}, /* EMMC_SDCD */
+	{OFFSET(gpmc_wait0), (MODE(7) | PULLUP_EN | RXACTIVE)}, /* EMMC_SDCD */
+
+	{OFFSET(gpmc_csn3), (MODE(7) | PULLUP_EN | RXACTIVE)}, /* EMMC_nRESET */
 	{-1},
 };
 

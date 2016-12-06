@@ -265,7 +265,15 @@
 	"loadramdisk=load ${devtype} ${devnum} ${rdaddr} ramdisk.gz\0" \
 	"loadimage=load ${devtype} ${bootpart} ${loadaddr} ${bootdir}/${bootfile}\0" \
 	"loadfdt=load ${devtype} ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}\0" \
-	"mmcboot=mmc dev ${mmcdev}; " \
+	"mmcsearch=if mmc dev 0; then " \
+			"setenv mmcdev 0; " \
+		"else " \
+			"setenv mmcdev 1; " \
+		"fi;\0" \
+	"mmcboot=run mmcsearch; " \
+		"mmc dev ${mmcdev}; " \
+		"setenv bootpart ${mmcdev}:2; "\
+		"setenv finduuid part uuid mmc ${mmcdev}:2 uuid; "\
 		"setenv devnum ${mmcdev}; " \
 		"setenv devtype mmc; " \
 		"if mmc rescan; then " \
